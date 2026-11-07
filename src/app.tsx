@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { loadConfig, type RigConfig } from './config.js';
-import { readNight } from './digest/types.js';
+import { readNight, type StatusCounts } from './digest/types.js';
 import { lane } from './lane.js';
 import { readStatus } from './status.js';
 import { DigestPage } from './views/digest.js';
@@ -12,13 +12,18 @@ export function createApp(config: RigConfig = loadConfig()) {
 
   app.get('/health', (c) => c.json({ ok: true, lane: lane().id }));
 
-  app.get('/', (c) =>
-    c.html(
+  app.get('/', (c) => {
+    const status = readStatus(config);
+    const counts: Record<string, StatusCounts> = {};
+    for (const night of status.nights) {
+      counts[night] = readNight(config.runsDir, night)?.counts ?? { ok: 0, retry: 0, fail: 0 };
+    }
+    return c.html(
       <Layout title="status" lane={lane()}>
-        <StatusBoard status={readStatus(config)} />
+        <StatusBoard status={status} counts={counts} />
       </Layout>,
-    ),
-  );
+    );
+  });
 
   app.get('/digest/:night', (c) => {
     const night = c.req.param('night');
