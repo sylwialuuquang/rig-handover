@@ -1,8 +1,9 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
+closed: 2026-11-07
 ---
 
 # Morning digest
@@ -77,3 +78,16 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| # | Issue | Blocked by | Worker | Closed |
+|---|-------|-----------|--------|--------|
+| 1 | Digest types | — | cursor · grok-4.7 · high | 2026-11-07 |
+| 2 | Run log reader | #1 | cursor · grok-4.7 · high | 2026-11-07 |
+| 3 | Digest page | #1, #2 | cursor · grok-4.7 · high | 2026-11-07 |
+| 4 | Digest JSON | #1, #2, #3 | cursor · grok-4.7 · high | 2026-11-07 |
+| 5 | Board link | #1, #2, #3 | cursor · grok-4.7 · high | 2026-11-07 |
+| 6 | Route tests | #3, #4 | cursor · grok-4.7 · high | 2026-11-07 |
+| 7 | Preview for review | #3 | cursor · grok-4.7 · high | 2026-11-07 |
+| 8 | Clean up the preview | #7 | cursor · grok-4.7 · high | 2026-11-07 |
